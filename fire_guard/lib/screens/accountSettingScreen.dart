@@ -128,10 +128,6 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
         await FirebaseFirestore.instance.collection('users').doc(uid).update(updateData);
       }
 
-      if (email != originalEmail) {
-        await user.updateEmail(email);
-      }
-
       if (password.isNotEmpty) {
         await user.updatePassword(password);
       }
@@ -213,9 +209,8 @@ class _AccountSettingScreenState extends State<AccountSettingScreen>
                           TextFormField(
                             initialValue: email,
                             decoration: inputDecoration('Email', Icons.email),
-                            onChanged: (value) => email = value.trim(),
-                            validator: (value) =>
-                                value!.contains('@') ? null : 'Email không hợp lệ',
+                            readOnly: true,
+                            enabled: false,
                           ),
                           SizedBox(height: 12),
                           DropdownMenu<String>(
